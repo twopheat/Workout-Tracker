@@ -7,14 +7,12 @@ const Schema = mongoose.Schema;
 const workoutSchema = new Schema({
   rep1Name: {
     type: String,
-    trim: true,
-    required: "Rep1 info is Required"
+    trim: true
   },
 
   cardioName: {
     type: String,
-    trim: true,
-    required: "Cardio info is Required"
+    trim: true
   },
 
   workoutname: {
@@ -25,14 +23,12 @@ const workoutSchema = new Schema({
 
   rep2Name: {
     type: String,
-    trim: true,
-    required: "Rep2 info is Required"
+    trim: true
   },
 
   rep3Name: {
     type: String,
-    trim: true,
-    required: "Rep3 info info is Required"
+    trim: true
   },
 
   workoutCreated: {
