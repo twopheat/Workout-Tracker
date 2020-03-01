@@ -9,15 +9,22 @@
 <body>
 
 <div class="container col-md-4 col-md-offset-4">
+  
+  <h2>Create a workout or hit GO to continue your Current workout.</h2>
+  <form>
+    <button class="col btn btn-md btn-success" id="goBtn" type="goBtn">GO</button>
+  </form>
   <form action="/submit" method="post">
-    <h2>Create a workout or continue your Current one.</h2>
     <input type="text" class="form-control" name="workoutname" placeholder="workoutname" autofocus>
     <input type="text" class="form-control" name="rep1" placeholder="rep1" autofocus>
     <input type="text" class="form-control" name="cardio" placeholder="cardio" autofocus>
     <input type="text" class="form-control" name="rep2" placeholder="rep2" autofocus>
     <input type="text" class="form-control" name="rep3" placeholder="rep3" autofocus>
-    <button class="btn btn-md btn-success btn-block" id="submit" type="submit">Submit</button>
+    <button class="btn btn-md btn-danger btn-block" id="submit" type="submit">Submit</button>
   </form>
+</div>
+<div id="workout-list">
+
 </div>
 </body>
 </html>

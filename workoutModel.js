@@ -5,30 +5,34 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const workoutSchema = new Schema({
-  rep1Name: {
-    type: String,
-    trim: true
-  },
-
-  cardioName: {
-    type: String,
-    trim: true
-  },
-
   workoutname: {
     type: String,
     trim: true,
     required: "Workout info is Required"
   },
 
+  cardioName: {
+    type: String,
+    trim: true,
+    required: "Cardio info is Required"
+  },
+
+  rep1Name: {
+    type: String,
+    trim: true,
+    required: "Rep1 info is Required"
+  },
+
   rep2Name: {
     type: String,
-    trim: true
+    trim: true,
+    required: "Rep2 info is Required"
   },
 
   rep3Name: {
     type: String,
-    trim: true
+    trim: true,
+    required: "Rep3 info is Required"
   },
 
   workoutCreated: {
