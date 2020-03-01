@@ -1,4 +1,4 @@
-// Add code to userModel.js to complete the model
+// Add code to workoutModel.js to complete the model
 
 const express = require("express");
 const logger = require("morgan");
@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 
 const PORT = process.env.PORT || 3000;
 
-const User = require("./workoutModel.js");
+const Workout = require("./workoutModel.js");
 
 const app = express();
 
@@ -17,21 +17,21 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/custommethoddb", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutTrackerDB", { useNewUrlParser: true });
 
 // Routes
 
 // Route to post our form submission to mongoDB via mongoose
 app.post("/submit", ({body}, res) => {
-  // Create a new user using req.body
+  // Create a new workout using req.body
 
-  // Update this route to run the `setFullName` and `lastUpdatedDate` methods before creating a new User
+  // Update this route to run the `setFullName` and `lastUpdatedDate` methods before creating a new Workout
   // You must create these methods in the model.
 
-  User.create(body)
-    .then(dbUser => {
-      // If saved successfully, send the the new User document to the client
-      res.json(dbUser);
+  Workout.create(body)
+    .then(dbWorkout => {
+      // If saved successfully, send the the new Workout document to the client
+      res.json(dbWorkout);
     })
     .catch(err => {
       // If an error occurs, send the error to the client
