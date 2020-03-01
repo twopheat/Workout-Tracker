@@ -1,121 +1,45 @@
+// Add code to userModel.js to complete the model
+
 const express = require("express");
-const mongojs = require("mongojs");
+const logger = require("morgan");
+const mongoose = require("mongoose");
+
+const PORT = process.env.PORT || 3000;
+
+const User = require("./workoutModel.js");
 
 const app = express();
 
-const databaseURL = "workoutTrackerDB";
-const collections = ["workoutPlans"];
+app.use(logger("dev"));
 
-const db = mongojs(databaseURL, collections);
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-db.on("error", error => {
-    console.log("Database Error:", error);
-});
+app.use(express.static("public"));
 
-app.get("/", (req, res) => {
-    res.send("Workout Tracker: pick a /day [monday, tuesday, wednesday, thursday, friday] OR choose a /muscle-group [biceps, triceps, cobras, deltoids, quads] to get started.");
-});
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/custommethoddb", { useNewUrlParser: true });
 
-app.get("/all", (req, res) => {
-    db.workoutPlans.find({}, (err, found) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(found);
-        }
-    });
-});
-app.get("/monday", (req, res) => {
-    db.workoutPlans.find({ item: "Monday" }, (err, found) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(found);
-        }
-    });
-});
-app.get("/tuesday", (req, res) => {
-    db.workoutPlans.find({ item: "Tuesday" }, (err, found) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(found);
-        }
-    });
-});
-app.get("/wednesday", (req, res) => {
-    db.workoutPlans.find({ item: "Wednesday" }, (err, found) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(found);
-        }
-    });
-});
-app.get("/thursday", (req, res) => {
-    db.workoutPlans.find({ item: "Thursday" }, (err, found) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(found);
-        }
-    });
-});
-app.get("/friday", (req, res) => {
-    db.workoutPlans.find({ item: "Friday" }, (err, found) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(found);
-        }
+// Routes
+
+// Route to post our form submission to mongoDB via mongoose
+app.post("/submit", ({body}, res) => {
+  // Create a new user using req.body
+
+  // Update this route to run the `setFullName` and `lastUpdatedDate` methods before creating a new User
+  // You must create these methods in the model.
+
+  User.create(body)
+    .then(dbUser => {
+      // If saved successfully, send the the new User document to the client
+      res.json(dbUser);
+    })
+    .catch(err => {
+      // If an error occurs, send the error to the client
+      res.json(err);
     });
 });
 
-app.get("/biceps", (req, res) => {
-    db.workoutPlans.find({ workout: "biceps" }, (err, found) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(found);
-        }
-    });
-});
-app.get("/triceps", (req, res) => {
-    db.workoutPlans.find({ workout: "triceps" }, (err, found) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(found);
-        }
-    });
-});
-app.get("/cobras", (req, res) => {
-    db.workoutPlans.find({ workout: "cobras" }, (err, found) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(found);
-        }
-    });
-});
-app.get("/deltoids", (req, res) => {
-    db.workoutPlans.find({ workout: "deltoids" }, (err, found) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(found);
-        }
-    });
-});
-app.get("/quads", (req, res) => {
-    db.workoutPlans.find({ workout: "quads" }, (err, found) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(found);
-        }
-    });
-});
-app.listen(3000, () => {
-    console.log("App running on port 3000!");
+// Start the server
+app.listen(PORT, () => {
+  console.log(`App running on port ${PORT}!`);
 });
