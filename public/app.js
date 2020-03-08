@@ -94,7 +94,7 @@ results.addEventListener("click", function(e) {
                 }
                 element.parentNode.remove();
                 resetExerciseAndWorkout();
-                let newButton = `<button id='make-new'>Submit</button>`;
+                let newButton = `<button class="btn btn-success" id='make-new'>Submit</button>`;
                 actionBtn.innerHTML = newButton;
             })
             .catch(function(err) {
