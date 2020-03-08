@@ -12,7 +12,7 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-const databaseUrl = "heroku_mcxg3rd9";
+const databaseUrl = "mongolab-rugged-59836";
 const collections = ["workouts"];
 
 const db = mongojs(databaseUrl, collections);
