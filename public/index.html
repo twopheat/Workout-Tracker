@@ -10,7 +10,8 @@
     <style media="screen">
         body {
             text-align: center;
-            background-color: rgb(241, 241, 241);
+            background: rgb(0,0,0);
+            background: linear-gradient(-90deg, rgba(0,0,0,1) 0%, rgba(205,203,203,1) 100%);
         }
         
         .primary {
@@ -73,7 +74,6 @@
             overflow: auto;
             margin-left: auto;
             margin-right: auto;
-            background-color: rgb(57, 179, 235);
         }
         
         #action-button {
@@ -86,11 +86,17 @@
     </style>
 </head>
 
-<body>
+<body class="container">
+  <div  class="row">
+    <div class="col">
     <h1>Workout Tracker</h1>
-    <h5>Create a new workout by submitting its name and exercise(s) below</h5>
-    <h5>Click on a workout to edit it.</h5>
-    <div id="user-input">
+    <h5>Create a new workout and exercise(s) below</h5>
+    <h5>Click on a workout below to edit it.</h5>
+    </div>
+  </div>
+  <div id="user-input">
+  <div class="row">
+      <div class="col">
         <br/>
         <p>Workout</p>
         <input class="rounded shadow-sm" type="text" id="exercise" />
@@ -98,16 +104,21 @@
         <br/>
         <p>Exercise</p>
         <textarea class="rounded shadow-sm" id="workout"></textarea>
+      </div>
+      <div class="col">
         <div id="buttons">
             <div id="action-button">
                 <button class="btn btn-primary" id="make-new">Submit</button>
             </div>
-            <button class="btn btn-danger" id="clear-all">Delete All Workouts</button>
+            <button class="btn btn-danger" id="clear-all">Clear All Workouts</button>
             <span id="status" class="primary">●</span>
+            <br>
+            <br>
+            <div class="rounded border border-secondary shadow-sm" id="results"></div>
         </div>
+      </div>
     </div>
-
-    <div class="rounded shadow-sm" id="results"></div>
+  </div>
     <script src="app.js"></script>
 </body>
 
