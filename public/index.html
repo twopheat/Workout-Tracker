@@ -3,35 +3,51 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <exercise>Workout Tracker - Powered by Mongo</exercise>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <style media="screen">
         body {
             text-align: center;
-            background: rgb(0,0,0);
-            background: linear-gradient(-90deg, rgba(0,0,0,1) 0%, rgba(205,203,203,1) 100%);
+            overflow: hidden;
+            background: rgb(0, 0, 0);
+            background: linear-gradient(-90deg, rgb(63, 63, 63) 0%, rgba(205, 203, 203, 1) 100%);
         }
-        
+
+        .container {
+            -ms-overflow-style: none;
+            /* Internet Explorer 10+ */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        .container::-webkit-scrollbar {
+            display: none;
+            /* Safari and Chrome */
+        }
+
         .primary {
             color: #09c703;
         }
-        
+
         p {
-            color:rgb(94, 94, 94);
+            color: rgb(94, 94, 94);
             margin-bottom: .25rem;
         }
+
         h1 {
             font-size: 40px;
             color: rgb(46, 146, 192);
         }
-        
+
         h2,
         h4 {
             color: rgb(57, 223, 235);
         }
-        
+
         .delete {
             margin-left: 20px;
             color: red;
@@ -39,7 +55,7 @@
             text-align: right;
             font-size: 20px;
         }
-        
+
         input {
             width: 400px;
             height: 50px;
@@ -48,26 +64,26 @@
             font-size: 42px;
             background-color: rgb(57, 235, 205);
         }
-        
+
         .editing {
-            color:rgb(255, 208, 0);
+            color: rgb(255, 208, 0);
         }
 
         textarea {
             width: 400px;
-            height: 400px;
+            height: 200px;
             margin-left: auto;
             margin-right: auto;
             font-size: 24px;
             background-color: rgb(57, 223, 235);
         }
-        
+
         .data-exercise {
             cursor: pointer;
             font-size: 24px;
 
         }
-        
+
         #results {
             width: 400px;
             height: 200px;
@@ -75,11 +91,11 @@
             margin-left: auto;
             margin-right: auto;
         }
-        
+
         #action-button {
             display: inline-block;
         }
-        
+
         #buttons {
             margin: 20px;
         }
@@ -87,38 +103,39 @@
 </head>
 
 <body class="container">
-  <div  class="row">
-    <div class="col">
-    <h1>Workout Tracker</h1>
-    <h5>Create a new workout and exercise(s) below</h5>
-    <h5>Click on a workout below to edit it.</h5>
-    </div>
-  </div>
-  <div id="user-input">
-  <div class="row">
-      <div class="col">
-        <br/>
-        <p>Workout</p>
-        <input class="rounded shadow-sm" type="text" id="exercise" />
-        <br/>
-        <br/>
-        <p>Exercise</p>
-        <textarea class="rounded shadow-sm" id="workout"></textarea>
-      </div>
-      <div class="col">
-        <div id="buttons">
-            <div id="action-button">
-                <button class="btn btn-primary" id="make-new">Submit</button>
-            </div>
-            <button class="btn btn-danger" id="clear-all">Clear All Workouts</button>
-            <span id="status" class="primary">●</span>
-            <br>
-            <br>
-            <div class="rounded border border-secondary shadow-sm" id="results"></div>
+    <div class="row">
+        <div class="col">
+            <h1>Workout Tracker</h1>
+            <h5>Create a new workout and exercise(s) below</h5>
+            <h5>Click on a workout below to edit it.</h5>
         </div>
-      </div>
     </div>
-  </div>
+    <div id="user-input">
+        <div class="row">
+            <div class="col">
+                <br />
+                <p>Workout</p>
+                <input class="rounded shadow-sm" type="text" id="exercise" />
+                <br />
+                <br />
+                <p>Exercise</p>
+                <textarea class="rounded shadow-sm" id="workout"></textarea>
+            </div>
+            <div class="col">
+                <div id="buttons">
+                    <div id="action-button">
+                        <button class="btn btn-primary" id="make-new">Submit</button>
+                    </div>
+                    <button class="btn btn-danger" id="clear-all">Clear All Workouts</button>
+                    <br>
+                    <br>
+                    <div class="rounded border border-secondary shadow-sm" id="results"></div>
+                    <br>
+                    <p class="text-white">STATUS: <span id="status" class="primary">Ready ●</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="app.js"></script>
 </body>
 

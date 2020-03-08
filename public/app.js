@@ -69,7 +69,7 @@ clear.addEventListener("click", function(e) {
             })
             .then(function(response) {
                 if (response.status !== 200) {
-                    console.log("Looks like there was a problem. Status Code: " + response.status);
+                    console.log("Error, Status Code: " + response.status);
                     return;
                 }
                 clearTodos();
@@ -89,13 +89,12 @@ results.addEventListener("click", function(e) {
             })
             .then(function(response) {
                 if (response.status !== 200) {
-                    console.log("Looks like there was a problem. Status Code: " + response.status);
+                    console.log("Error, Status Code: " + response.status);
                     return;
                 }
                 element.parentNode.remove();
                 resetExerciseAndWorkout();
-                let newButton = `
-      <button id='make-new'>Submit</button>`;
+                let newButton = `<button id='make-new'>Submit</button>`;
                 actionBtn.innerHTML = newButton;
             })
             .catch(function(err) {
@@ -104,14 +103,15 @@ results.addEventListener("click", function(e) {
     } else if (e.target.matches(".dataExercise")) {
         element = e.target;
         data_id = element.getAttribute("data-id");
-        status.innerText = "●"
+        document.getElementById('status').style.color = 'orange';
+        status.innerText = 'Editing ●';
         fetch("/find/" + data_id, { method: "get" })
             .then(function(response) {
                 return response.json();
             })
             .then(function(data) {
                 updateExerciseAndWorkout(data);
-                let newButton = `<button id='updater' data-id=${data_id}>Update</button>`;
+                let newButton = `<button class='btn btn-warning' id='updater' data-id=${data_id}>Update</button>`;
                 actionBtn.innerHTML = newButton;
             })
             .catch(function(err) {
@@ -145,7 +145,8 @@ actionBtn.addEventListener("click", function(e) {
                 resetExerciseAndWorkout();
                 let newButton = `<button class="btn btn-success" id='make-new'>Submit</button>`;
                 actionBtn.innerHTML = newButton;
-                status.innerText = '●';
+                status.innerText = 'Ready ●';                
+                document.getElementById('status').style.color = '#09c703';
             })
             .catch(function(err) {
                 console.log("Fetch Error :-S", err);
