@@ -1,10 +1,7 @@
 const express = require("express");
+const mongojs = require("mongojs");
 const logger = require("morgan");
-const mongoose = require("mongoose");
-
-const PORT = process.env.PORT || 3000;
-
-const Workout = require("./workoutModel.js");
+const path = require("path");
 
 const app = express();
 
@@ -15,28 +12,103 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutTrackerDB", { useNewUrlParser: true });
+const databaseUrl = "workoutDB";
+const collections = ["workouts"];
 
-app.post("/submit", ({body}, res) => {
+const db = mongojs(databaseUrl, collections);
 
-
-
-  Workout.create(body)
-    .then(dbWorkout => {
-      res.json(dbWorkout);
-    })
-    .catch(err => {
-      res.json(err);
-    });
+db.on("error", error => {
+  console.log("Database Error:", error);
 });
 
-// THIS route is being a bugger, cannot get it to show me the corrent workout
-app.get("/goBtn", async (req, res) => {
-  const workouts = await workouts.find({});
-  res.render("profile", {workouts});
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname + "./public/index.html"));
 });
 
+app.post("/submit", (req, res) => {
+  console.log(req.body);
 
-app.listen(PORT, () => {
-  console.log(`App running on port ${PORT}!`);
+  db.workouts.insert(req.body, (error, data) => {
+    if (error) {
+      res.send(error);
+    } else {
+      res.send(data);
+    }
+  });
+});
+
+app.get("/all", (req, res) => {
+  db.workouts.find({}, (error, data) => {
+    if (error) {
+      res.send(error);
+    } else {
+      res.json(data);
+    }
+  });
+});
+
+app.get("/find/:id", (req, res) => {
+  db.workouts.findOne(
+    {
+      _id: mongojs.ObjectId(req.params.id)
+    },
+    (error, data) => {
+      if (error) {
+        res.send(error);
+      } else {
+        res.send(data);
+      }
+    }
+  );
+});
+
+app.post("/update/:id", (req, res) => {
+  db.workouts.update(
+    {
+      _id: mongojs.ObjectId(req.params.id)
+    },
+    {
+      $set: {
+        title: req.body.title,
+        workout: req.body.workout,
+        modified: Date.now()
+      }
+    },
+    (error, data) => {
+      if (error) {
+        res.send(error);
+      } else {
+        res.send(data);
+      }
+    }
+  );
+});
+
+app.delete("/delete/:id", (req, res) => {
+  db.workouts.remove(
+    {
+      _id: mongojs.ObjectID(req.params.id)
+    },
+    (error, data) => {
+      if (error) {
+        res.send(error);
+      } else {
+        res.send(data);
+      }
+    }
+  );
+});
+
+app.delete("/clearall", (req, res) => {
+  db.workouts.remove({}, (error, response) => {
+    if (error) {
+      res.send(error);
+    } else {
+      res.send(response);
+    }
+  });
+});
+
+app.listen(3002, () => {
+  console.log("App running on port 3002!");
 });
