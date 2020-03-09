@@ -12,10 +12,10 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-const databaseUrl = "heroku_mcxg3rd9";
+const MONGODB_URI = process.env.MONGODB_URI||"mongodb://localhost/workoutDB";
 const collections = ["workouts"];
 
-const db = mongojs(databaseUrl, collections);
+const db = mongojs(MONGODB_URI, collections);
 
 db.on("error", error => {
   console.log("Database Error:", error);
@@ -108,7 +108,8 @@ app.delete("/clearall", (req, res) => {
     }
   });
 });
+const PORT = process.env.PORT||3002;
 
-app.listen(3002, () => {
-  console.log("App running on port 3002!");
+app.listen(PORT, () => {
+  console.log(`App running on port ${3002}!`);
 });

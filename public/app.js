@@ -108,6 +108,7 @@ results.addEventListener("click", function(e) {
         fetch("/find/" + data_id, { method: "get" })
             .then(function(response) {
                 return response.json();
+                
             })
             .then(function(data) {
                 updateExerciseAndWorkout(data);
