@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <exercise>Workout Tracker - Powered by Mongo</exercise>
+    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -12,9 +12,9 @@
     <style media="screen">
         body {
             text-align: center;
-            background: rgb(0, 0, 0);
-            background: linear-gradient(-90deg, rgb(63, 63, 63) 0%, rgba(205, 203, 203, 1) 100%);
-        }
+            background: white;
+            background-image: url(bkg.png);
+            }
 
         .container {
             -ms-overflow-style: none;
@@ -102,11 +102,12 @@
 </head>
 
 <body class="container">
-    <div class="row">
-        <div class="col">
+    <div class="row bg-light shadow-sm">
+        <div class="col-12">
             <h1>Workout Tracker</h1>
             <h5>Create a new workout and exercise(s) below</h5>
             <h5>Click on a workout below to edit it.</h5>
+            <exercise>Workout Tracker - Powered by Mongo</exercise>
         </div>
     </div>
     <div id="user-input">
@@ -114,7 +115,7 @@
             <div class="col">
                 <br />
                 <p>Workout</p>
-                <input class="rounded shadow-sm" type="text" id="exercise" />
+                <input class="rounded" type="text" id="exercise" />
                 <br />
                 <br />
                 <p>Exercise</p>
